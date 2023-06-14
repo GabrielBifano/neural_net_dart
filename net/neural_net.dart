@@ -1,15 +1,29 @@
+import 'layer.dart';
 
-
-class Cerebro<T> { // Cerebro = Brain in portuguese
+class Cerebro { // Cerebro = Brain in portuguese
 
   int hiddenSize = 0;
-  T dataStream;
+  List<double> dataStream;
+  List<Layer> layers = [];
 
-  Cerebro(T data)
+  Cerebro(List<double> data)
     : dataStream = data;
 
   // change the data stored at the neural network
-  void feed(T dataset) => dataStream = dataset;
+  void feed(List<double> dataset) => dataStream = dataset;
+
+  // Internal process functions
+  void forward(){
+    for(Layer layer in layers){
+      
+    }
+  }
+
+  void backward(){
+
+  }
+
+  // Utile functions
 
   // uses the stored data to train
   void train() {

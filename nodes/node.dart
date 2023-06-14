@@ -1,13 +1,23 @@
-import '../ropes/rope.dart';
-
 class Node {
   
+  static double maxW = 1, minW = -1;
+  static double step = 0.05;
   late double _output;
-  List<Rope> _next = [];
+  List<Node> _next = [];
 
   Node(next, input){
     _next = next;
     _output = activate(input);
+  }
+
+  Node.configure(
+    next,
+    input,
+    maxW,
+    minW,
+    step,
+    ){
+      
   }
 
   double activate(double input) => input;
@@ -15,7 +25,7 @@ class Node {
   
   void call() {
     for(final rope in _next){
-      rope.call(_output);
+      
     }
   }
 
