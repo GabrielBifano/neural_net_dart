@@ -10,7 +10,7 @@ class Layer {
   
   void allocate(){
     for(int i = 0; i < size; i++){
-      layer[i] = Node([], 0);
+      layer[i] = Node();
     }
   }
 }
