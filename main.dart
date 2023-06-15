@@ -17,7 +17,7 @@ void main (){
   List<Node> layer1 = [NodeRELu(), NodeRELu()];
   List<Node> layer2 = [output];
 
-  for(Node node in layer1){
+  for(Node node in layer1){ // TODO this is pretty much a layer setter
     node.next = layer2;
     for(Node _ in layer2){
       final w = Random().nextDouble() * 2 - 1;
@@ -26,8 +26,15 @@ void main (){
     }
   }
 
-  
+  for(Node node in layer0){ // TODO this is pretty much a layer setter
+    node.next = layer1;
+    for(Node _ in layer1){
+      final w = Random().nextDouble() * 2 - 1;
+      final b = Random().nextDouble() * 4 - 1;
+      node.nextWB.add(Pair(w, b));
+    }
+  }
 
-  Node myn = Node();
-
+  input.call(1.0, 0, 0);
+  print('output weights ${output.nextWB}, output: ${NodeOutput.output}');
 }
