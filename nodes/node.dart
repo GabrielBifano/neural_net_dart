@@ -26,13 +26,14 @@ class Node {
   double activate(double input) => input;
 
   void spy(out) => print('Node operation result: $out');
+  void spyWB(){for(Pair p in nextWB) print('Node operation result: ${p.toString()}');}
   
   void call(input, weight, bias) {
     
     double output = activate(input);
     output *= weight;
     output += bias;
-    spy(output); //TODO remove this
+    spyWB(); //TODO remove this
     for(int i = 0; i < next.length; i++){
       final node = next[i];
       final params = nextWB[i];
