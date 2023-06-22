@@ -1,11 +1,13 @@
+import 'layer.dart';
 import '../nodes/node.dart';
 
-class Layer {
+class LayerOut extends Layer {
 
   int size = 0;
   List<Node> layer = [];
   
-  Layer();
-  Layer.allocate(List<Node> nodes)
+
+  LayerOut.allocate(List<Node> nodes,)
     : layer = nodes;
+  
 }
