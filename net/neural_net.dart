@@ -7,39 +7,43 @@ import '../utils/pair.dart';
 
 class Cerebro { // Cerebro = Brain in portuguese
 
-  final layers = {};
   Cerebro();
 
-
+  int? INPUT;
+  int? OUTPUT;
+  final layers = {};
 
   /// [hlayers] is a [int] vector,
   /// each element representing the
   /// ammount of [nodes] inside each layer
 
-  void setLayers(hlayers, ninputs, noutputs) { // TODO just hlayers is fine
+  void setLayers(hlayers) { // TODO just hlayers is fine
     
-    layers['input'] = <NodeInput>[];
-    layers['output'] = <NodeOutput>[];
-       
-    for(int i = 0; i < noutputs; i++){
-      layers['output'].add(NodeOutput());
-    }
-    {
-      int a = hlayers.length - 1;
-      hlayers[a] = <Node>[]; 
-      for(int j = 0; j < hlayers[a]; j++){
-        final wb = _generateWB(hlayers[a - 1]);
-        hlayers[a].add(Node.set(hlayers['output'], wb));
+    INPUT = 0;
+    OUTPUT = hlayers.length - 1;
+    
+    for(int i = hlayers.length - 1; i >= 0; i--){
+
+      if (i == OUTPUT){
+        layers[OUTPUT] = <NodeOutput>[];
+        for(int j = 0; j < hlayers[OUTPUT]; j++)
+          layers[OUTPUT].add(NodeOutput());
+      
+      } else if(i == INPUT){
+        layers[INPUT] = <NodeInput>[];
+        final adjacent = hlayers[INPUT! + 1];
+        final wb = _generateWB(adjacent);
+        for(int j = 0; j < hlayers[INPUT]; j++)
+          layers[INPUT].add(NodeInput.set(adjacent, wb));
+      
+      } else {
+        layers[i] = <Node>[];
+        final adjacent = hlayers[i + 1];
+        final wb = _generateWB(adjacent);
+        for(int j = 0; j < hlayers[i]; j++)
+          layers[i].add(Node.set(adjacent, wb));
+
       }
-    }
-    for(int i = hlayers.length - 2; i >= 0; i--){
-      hlayers[i] = <Node>[];
-      for(int j = 0; j < hlayers[i]; j++){
-        hlayers[i].add(Node());
-      }
-    }
-    for(int i = 0; i < ninputs; i++){
-      layers['input'].add(NodeInput());
     }
   }
 
