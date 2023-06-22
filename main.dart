@@ -5,11 +5,9 @@ import 'nodes/nodeOut.dart';
 import 'nodes/node.dart';
 import 'nodes/nodeRELu.dart';
 import 'utils/pair.dart';
-// import 'nodes/nodeRELu.dart';
-// import 'nodes/nodeSigmoid.dart';
+
 void main (){
   
-  List<List<Node>> M = [];
   final input = NodeInput();
   final output = NodeOutput();
 
