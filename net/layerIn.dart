@@ -30,6 +30,8 @@ class LayerInput extends Layer {
   void start(){
     int i = 0, j = 0;
     for(Node node in layer){
+      // TODO: é possivel eliminar o next layer, uma vez que a
+      // lista de pesos e viéses está guardada dentro de node
       for(Node _ in nextLayer.layer){
         _.call(data![i], node.nextWB[j].w, node.nextWB[j].b);
         j++;

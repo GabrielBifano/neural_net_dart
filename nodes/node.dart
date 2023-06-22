@@ -9,14 +9,15 @@ class Node {
   List<Pair<double>> nextWB = [];
 
   Node();
+  Node.set(next, nextWB)
+    : next = next,
+      nextWB = nextWB;
 
-  Node.configure(
-    next,
+  static configure(
     maxW,
     minW,
     step,
     ){
-    next = next;
     Node.step = step;
     Node.maxW = maxW;
     Node.minW = minW;
