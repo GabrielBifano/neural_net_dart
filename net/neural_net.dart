@@ -17,12 +17,17 @@ class Cerebro { // Cerebro = Brain in portuguese
   /// each element representing the
   /// ammount of [nodes] inside each layer
 
-  void setLayers(hlayers) { // TODO just hlayers is fine
+  void setLayers(hlayers) { 
     
+    /* 
+      TODO there is a problem here. The weights
+      and biases from nodes of layer x are the same
+      when refering to the same nodes from layer x + 1
+    */
+
     INPUT = 0;
     OUTPUT = hlayers.length - 1;
-    
-    for(int i = hlayers.length - 1; i >= 0; i--){
+    for(int i = OUTPUT!; i >= 0; i--){
 
       if (i == OUTPUT){
         layers[OUTPUT] = <NodeOutput>[];
@@ -31,15 +36,17 @@ class Cerebro { // Cerebro = Brain in portuguese
       
       } else if(i == INPUT){
         layers[INPUT] = <NodeInput>[];
-        final adjacent = hlayers[INPUT! + 1];
-        final wb = _generateWB(adjacent);
+        final adjacent = layers[INPUT! + 1];
+        final nextsize = hlayers[INPUT! + 1];
+        final wb = _generateWB(nextsize);
         for(int j = 0; j < hlayers[INPUT]; j++)
           layers[INPUT].add(NodeInput.set(adjacent, wb));
       
       } else {
         layers[i] = <Node>[];
-        final adjacent = hlayers[i + 1];
-        final wb = _generateWB(adjacent);
+        final adjacent = layers[i + 1];
+        final nextsize = hlayers[i + 1];
+        final wb = _generateWB(nextsize);
         for(int j = 0; j < hlayers[i]; j++)
           layers[i].add(Node.set(adjacent, wb));
 
@@ -48,8 +55,10 @@ class Cerebro { // Cerebro = Brain in portuguese
   }
 
   // Internal process functions
-  void forward(){
-    // input.start();
+  void forward(input){
+    for(NodeInput node in layers[INPUT]){
+      node.call(input, 0, 0);
+    }
   }
 
   void backward(){
@@ -74,13 +83,24 @@ class Cerebro { // Cerebro = Brain in portuguese
   }
 
   // Utils
-  List<dynamic> _generateWB(size){
-    List<dynamic> wb = [];
+  List<Pair<double>> _generateWB(size){
+    List<Pair<double>> wb = [];
     for(int i = 0; i < size; i++){
       final w = Random().nextDouble() * 2 - 1;
       final b = Random().nextDouble() * 4 - 1;
       wb.add(Pair(w, b));
     }
     return wb;
+  }
+
+  void printLayers(){
+    print('\n\n');
+    for(List<Node> layer in layers.values){
+      for(Node node in layer){
+        print('${node.nextWB}');
+      }
+      print(' --------------- ');
+    }
+    print('\n\n');
   }
 }

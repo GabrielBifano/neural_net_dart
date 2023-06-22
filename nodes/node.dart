@@ -28,7 +28,8 @@ class Node {
 
   void spy(out) => print('Node operation result: $out');
   void spyWB(){for(Pair p in nextWB) print('Node operation result: ${p.toString()}');}
-  
+  String signal() => ' Node ';
+
   void call(input, weight, bias) {
     
     double output = activate(input);
