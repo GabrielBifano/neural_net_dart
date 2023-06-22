@@ -17,7 +17,13 @@ class Cerebro { // Cerebro = Brain in portuguese
   /// each element representing the
   /// ammount of [nodes] inside each layer
 
-  void setLayers(hlayers) {
+  void setLayers(hlayers) { 
+    
+    /* 
+      TODO there is a problem here. The weights
+      and biases from nodes of layer x are the same
+      when refering to the same nodes from layer x + 1
+    */
 
     INPUT = 0;
     OUTPUT = hlayers.length - 1;
@@ -49,8 +55,10 @@ class Cerebro { // Cerebro = Brain in portuguese
   }
 
   // Internal process functions
-  void forward(){
-    // input.start();
+  void forward(input){
+    for(NodeInput node in layers[INPUT]){
+      node.call(input, 0, 0);
+    }
   }
 
   void backward(){
@@ -89,7 +97,7 @@ class Cerebro { // Cerebro = Brain in portuguese
     print('\n\n');
     for(List<Node> layer in layers.values){
       for(Node node in layer){
-        print('${node.signal()}');
+        print('${node.nextWB}');
       }
       print(' --------------- ');
     }

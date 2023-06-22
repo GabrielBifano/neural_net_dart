@@ -8,5 +8,7 @@ void main (){
 
   c.setLayers([1, 2, 1]);
   c.printLayers();
+  c.forward(1.0);
+  c.printLayers();
   // print('output weights ${output.nextWB}, output: ${NodeOutput.output}');
 }
